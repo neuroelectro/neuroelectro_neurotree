@@ -3,8 +3,9 @@
 import urllib2
 import json
 
+base_api_url = 'http://hearingbrain.org/'
 def get_neurotree_node_id_from_pmid(pmid):
-    query_url = 'http://neurotree.org/beta/include/check_pmid.php?term=%s' % pmid
+    query_url = base_api_url + 'beta/include/check_pmid.php?term=%s' % pmid
     response = urllib2.urlopen(query_url)
     data = json.load(response)   
     if data:
@@ -18,7 +19,7 @@ def get_neurotree_node_id_from_pmid(pmid):
         return None
 
 def get_neurotree_node_info(neurotree_node_id):
-    query_url = 'http://neurotree.org/neurotree/jsonQuery.php?querytype=node&pid=%s' % neurotree_node_id
+    query_url = base_api_url + 'neurotree/jsonQuery.php?querytype=node&pid=%s' % neurotree_node_id
     try:
         response = urllib2.urlopen(query_url)
     except:
@@ -35,7 +36,7 @@ def get_investigator_path_len(neurotree_node_id_1, neurotree_node_id_2):
     if neurotree_node_id_1 is None or neurotree_node_id_2 is None:
         return None, None
     DEFAULT_MAX_STEPS = 20
-    query_url = 'http://neurotree.org/neurotree/distance.php?pid1=%s&pid2=%s&refresh=1&includera=1&includepd=1&includers=1&backonly=1&dispformat=json&maxsteps=%s' %  (neurotree_node_id_1, neurotree_node_id_2, DEFAULT_MAX_STEPS)
+    query_url = base_api_url + 'neurotree/distance.php?pid1=%s&pid2=%s&refresh=1&includera=1&includepd=1&includers=1&backonly=1&dispformat=json&maxsteps=%s' %  (neurotree_node_id_1, neurotree_node_id_2, DEFAULT_MAX_STEPS)
     try:
         response = urllib2.urlopen(query_url)
     except:

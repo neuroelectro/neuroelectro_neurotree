@@ -40,13 +40,14 @@ NeuroTreeID,LastAuthor,Pmid,Connectedness
 2218,Alkon DL,11495958,0.0
 2492,Jensen FE,22171027,0.0
 28491,Irving AJ,16367774,0.0
-42508,Landfield PW,21289178,0.0
+42508,Landfield PW,26224869,0.0
 7080,Brown RE,19914331,0.0
 9676,Cavalheiro EA,21215795,0.0
+5038,Buzsáki G,11483306,
+74136,Swartzwelder HS,14645379,
 ,Angelatou F,16542781,
 ,Behr J,20646048,
 ,Bergeron R,15661817,
-,Buzsáki G,11483306,
 ,Buño W,12867518,
 ,Carlen PL,17991696,
 ,Chen JY,18674519,
@@ -54,12 +55,10 @@ NeuroTreeID,LastAuthor,Pmid,Connectedness
 ,Hájos N,20421280,
 ,Hübner CA,21593314,
 ,Joëls M,12895506,
-,Landfield PW,26224869,
 ,None,22279188,
 ,Ruan DY,18683240,
 ,Sanchez-Andres JV,10799755,
 ,Stelzer A,10087347,
-,Swartzwelder HS,14645379,
 ,Takada M,15107470,
 ,Tang CM,17202472,
 ,Thibault O,16571755,
