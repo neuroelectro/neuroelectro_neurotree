@@ -3,7 +3,7 @@
 import urllib2
 import json
 
-base_api_url = 'http://hearingbrain.org/'
+base_api_url = 'http://neurotree.org/'
 def get_neurotree_node_id_from_pmid(pmid):
     query_url = base_api_url + 'beta/include/check_pmid.php?term=%s' % pmid
     response = urllib2.urlopen(query_url)
