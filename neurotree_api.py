@@ -1,15 +1,24 @@
 # define some python functions for working with the neurotree API
 
-import urllib2
+try:
+    import urllib2
+except:
+    import urllib.request as urllib2
 import json
+import numpy as np
+
+def url2json(url):
+    response = urllib2.urlopen(url)
+    string = response.read().decode('utf-8')
+    string = string.replace('""','"').replace(':",',':"",')
+    data = None if not len(string) else json.loads(string, encoding='bytes') 
+    return data
 
 base_api_url = 'http://neurotree.org/'
 def get_neurotree_node_id_from_pmid(pmid):
     query_url = base_api_url + 'beta/include/check_pmid.php?term=%s' % pmid
-    response = urllib2.urlopen(query_url)
-    data = json.load(response)   
+    data = url2json(query_url)
     if data:
-#         print data
         for author in data:
 #             print author['authorRank']
 #             print author['label']
@@ -20,15 +29,9 @@ def get_neurotree_node_id_from_pmid(pmid):
 
 def get_neurotree_node_info(neurotree_node_id):
     query_url = base_api_url + 'neurotree/jsonQuery.php?querytype=node&pid=%s' % neurotree_node_id
-    try:
-        response = urllib2.urlopen(query_url)
-    except:
-        return None
-    try:
-        data = json.load(response)   
-    except:
-        return None
-    return data[0]
+    data = url2json(query_url)
+    info = None if data is None else data[0]
+    return info
     
 def get_investigator_path_len(neurotree_node_id_1, neurotree_node_id_2):
     if neurotree_node_id_1 == neurotree_node_id_2:
@@ -37,15 +40,8 @@ def get_investigator_path_len(neurotree_node_id_1, neurotree_node_id_2):
         return None, None
     DEFAULT_MAX_STEPS = 20
     query_url = base_api_url + 'neurotree/distance.php?pid1=%s&pid2=%s&refresh=1&includera=1&includepd=1&includers=1&backonly=1&dispformat=json&maxsteps=%s' %  (neurotree_node_id_1, neurotree_node_id_2, DEFAULT_MAX_STEPS)
-    try:
-        response = urllib2.urlopen(query_url)
-    except:
-        return None, None
-    try:
-        data = json.load(response)   
-    except:
-        return None, None
-    print data
+    data = url2json(query_url)
+    print(data)
     if data:
         if data['stepstaken'] == DEFAULT_MAX_STEPS:
             path_len = np.inf
