@@ -10,8 +10,11 @@ import numpy as np
 def url2json(url):
     response = urllib2.urlopen(url)
     string = response.read().decode('utf-8')
-    string = string.replace('""','"').replace(':",',':"",')
-    data = None if not len(string) else json.loads(string, encoding='bytes') 
+    string = string.replace('""','"').replace(':",',':"",').replace('"C.Besta"','C. Besta"')
+    try:
+        data = None if not len(string) else json.loads(string, encoding='bytes') 
+    except ValueError:
+        raise Exception("%s cannot be parsed." % string)
     return data
 
 base_api_url = 'http://neurotree.org/'
@@ -30,7 +33,7 @@ def get_neurotree_node_id_from_pmid(pmid):
 def get_neurotree_node_info(neurotree_node_id):
     query_url = base_api_url + 'neurotree/jsonQuery.php?querytype=node&pid=%s' % neurotree_node_id
     data = url2json(query_url)
-    info = None if data is None else data[0]
+    info = None if data in [None,[]] else data[0]
     return info
     
 def get_investigator_path_len(neurotree_node_id_1, neurotree_node_id_2):
