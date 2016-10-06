@@ -43,8 +43,9 @@ def get_investigator_path_len(neurotree_node_id_1, neurotree_node_id_2):
         return None, None
     DEFAULT_MAX_STEPS = 20
     query_url = base_api_url + 'neurotree/distance.php?pid1=%s&pid2=%s&refresh=1&includera=1&includepd=1&includers=1&backonly=1&dispformat=json&maxsteps=%s' %  (neurotree_node_id_1, neurotree_node_id_2, DEFAULT_MAX_STEPS)
+    #print(query_url)
     data = url2json(query_url)
-    print(data)
+    #print(data)
     if data:
         if data['stepstaken'] == DEFAULT_MAX_STEPS:
             path_len = np.inf
